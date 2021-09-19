@@ -577,6 +577,12 @@
     <Reference Include="Unity.VSCode.Editor">
         <HintPath>/Users/yusuf/Documents/Projects/Face-Cam/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="NatSuite.ML">
+        <HintPath>/Users/yusuf/Documents/Projects/Face-Cam/Library/ScriptAssemblies/NatSuite.ML.dll</HintPath>
+    </Reference>
+    <Reference Include="NatSuite.ML.Editor">
+        <HintPath>/Users/yusuf/Documents/Projects/Face-Cam/Library/ScriptAssemblies/NatSuite.ML.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
         <HintPath>/Users/yusuf/Documents/Projects/Face-Cam/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
@@ -601,21 +607,15 @@
     <Reference Include="UnityEditor.UI">
         <HintPath>/Users/yusuf/Documents/Projects/Face-Cam/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
-    <Reference Include="NatSuite.ML">
-        <HintPath>/Users/yusuf/Documents/Projects/Face-Cam/Library/ScriptAssemblies/NatSuite.ML.dll</HintPath>
-    </Reference>
-    <Reference Include="NatSuite.ML.Editor">
-        <HintPath>/Users/yusuf/Documents/Projects/Face-Cam/Library/ScriptAssemblies/NatSuite.ML.Editor.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="NatSuite.ML.Vision.UltraFace.csproj">
-      <Project>{f3af0b37-f702-3449-1335-81b6752249c3}</Project>
-      <Name>NatSuite.ML.Vision.UltraFace</Name>
-    </ProjectReference>
     <ProjectReference Include="NatSuite.Devices.csproj">
       <Project>{18d870f8-1829-547f-27e9-bf33dc850e1c}</Project>
       <Name>NatSuite.Devices</Name>
+    </ProjectReference>
+    <ProjectReference Include="NatSuite.ML.Vision.UltraFace.csproj">
+      <Project>{f3af0b37-f702-3449-1335-81b6752249c3}</Project>
+      <Name>NatSuite.ML.Vision.UltraFace</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

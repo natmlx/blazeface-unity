@@ -150,9 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49909df4043254ee8aa152dcc51e2251, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accessKey: PfLILDYtwc2iWqMR8IkdV
-  modelData: {fileID: 8538825877217656561, guid: 695178af58d2a41dba6a13f1e2e9830f,
-    type: 3}
+  accessKey: 
   visualizer: {fileID: 504700059}
 --- !u!4 &376055271
 Transform:
