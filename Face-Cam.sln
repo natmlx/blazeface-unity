@@ -5,7 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NatSuite.Devices", "NatSuit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{e852af06-64ac-1e8b-cc92-723591667a80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NatSuite.ML.Vision.UltraFace", "NatSuite.ML.Vision.UltraFace.csproj", "{f3af0b37-f702-3449-1335-81b6752249c3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NatSuite.ML.Vision.BlazeFace", "NatSuite.ML.Vision.BlazeFace.csproj", "{5996a946-5f9e-c17b-fc00-03f3f5a26d45}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,8 +16,8 @@ Global
 		{18d870f8-1829-547f-27e9-bf33dc850e1c}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{e852af06-64ac-1e8b-cc92-723591667a80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{e852af06-64ac-1e8b-cc92-723591667a80}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{f3af0b37-f702-3449-1335-81b6752249c3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{f3af0b37-f702-3449-1335-81b6752249c3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5996a946-5f9e-c17b-fc00-03f3f5a26d45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5996a946-5f9e-c17b-fc00-03f3f5a26d45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -18,14 +18,14 @@ namespace NatSuite.Examples {
         public string accessKey;
 
         [Header(@"Visualization")]
-        public UltraFaceVisualizer visualizer;
+        public BlazeFaceVisualizer visualizer;
 
         CameraDevice cameraDevice;
         Texture2D previewTexture;
         byte[] pixelBuffer;
         MLModelData modelData;
         MLModel model;
-        UltraFacePredictor predictor;
+        BlazeFacePredictor predictor;
 
         async void Start () {
             // Request camera permissions
@@ -42,13 +42,13 @@ namespace NatSuite.Examples {
             pixelBuffer = previewTexture.GetRawTextureData<byte>().ToArray();
             // Display the camera preview
             visualizer.Render(previewTexture);
-            // Fetch the TinyYOLO detector
+            // Fetch the BlazeFace model data
             Debug.Log("Fetching model from NatML Hub");
-            modelData = await MLModelData.FromHub("@natsuite/ultraface", accessKey);
+            modelData = await MLModelData.FromHub("@natsuite/blazeface", accessKey);
             // Deserialize the model
             model = modelData.Deserialize();
-            // Create the SSD Lite predictor
-            predictor = new UltraFacePredictor(model);
+            // Create the BlazeFace predictor
+            predictor = new BlazeFacePredictor(model);
         }
 
         void Update () {

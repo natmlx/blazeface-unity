@@ -37,8 +37,8 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\FaceCam.cs" />
-     <Compile Include="Assets\ML\ultraface\Sample\UltraFaceSample.cs" />
-     <Compile Include="Assets\ML\ultraface\Sample\UltraFaceVisualizer.cs" />
+     <Compile Include="Assets\ML\blazeface\Sample\BlazeFaceSample.cs" />
+     <Compile Include="Assets\ML\blazeface\Sample\BlazeFaceVisualizer.cs" />
      <Compile Include="Assets\NatSuite\Examples\HotMic\ClipRecorder.cs" />
      <Compile Include="Assets\NatSuite\Examples\HotMic\HotMic.cs" />
      <Compile Include="Assets\NatSuite\Examples\HotMic\MicrophoneButton.cs" />
@@ -613,9 +613,9 @@
       <Project>{18d870f8-1829-547f-27e9-bf33dc850e1c}</Project>
       <Name>NatSuite.Devices</Name>
     </ProjectReference>
-    <ProjectReference Include="NatSuite.ML.Vision.UltraFace.csproj">
-      <Project>{f3af0b37-f702-3449-1335-81b6752249c3}</Project>
-      <Name>NatSuite.ML.Vision.UltraFace</Name>
+    <ProjectReference Include="NatSuite.ML.Vision.BlazeFace.csproj">
+      <Project>{5996a946-5f9e-c17b-fc00-03f3f5a26d45}</Project>
+      <Name>NatSuite.ML.Vision.BlazeFace</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

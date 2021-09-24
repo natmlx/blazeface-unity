@@ -9,10 +9,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{f3af0b37-f702-3449-1335-81b6752249c3}</ProjectGuid>
+    <ProjectGuid>{5996a946-5f9e-c17b-fc00-03f3f5a26d45}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>NatSuite.ML.Vision.UltraFace</AssemblyName>
+    <AssemblyName>NatSuite.ML.Vision.BlazeFace</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -36,8 +36,8 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\ML\ultraface\Runtime\UltraFacePredictor.cs" />
-     <None Include="Assets\ML\ultraface\Runtime\NatSuite.ML.Vision.UltraFace.asmdef" />
+     <Compile Include="Assets\ML\blazeface\Runtime\BlazeFacePredictor.cs" />
+     <None Include="Assets\ML\blazeface\Runtime\NatSuite.ML.Vision.BlazeFace.asmdef" />
     <Reference Include="UnityEngine">
         <HintPath>/Applications/Unity/Hub/Editor/2019.4.28f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>

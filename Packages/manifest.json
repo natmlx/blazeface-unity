@@ -7,7 +7,7 @@
     }
   ],
   "dependencies": {
-    "api.natsuite.natml": "1.0.3",
+    "api.natsuite.natml": "1.0.4",
     "com.unity.collab-proxy": "1.2.16",
     "com.unity.ide.rider": "1.2.1",
     "com.unity.ide.visualstudio": "2.0.8",
