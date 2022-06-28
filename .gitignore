@@ -3,13 +3,9 @@ Library/
 Temp/
 obj/
 
-# NatSuite Framework
-Assets/NatSuite/
-Assets/NatSuite.meta
-
-# NatML Predictors
-Assets/ML/
-Assets/ML.meta
+# NatML
+Assets/NatML/
+Assets/NatML.meta
 
 # IDE
 .vscode/

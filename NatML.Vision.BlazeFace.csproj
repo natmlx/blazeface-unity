@@ -9,10 +9,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{d6396dfd-621d-133c-6291-7be2f31a72e8}</ProjectGuid>
+    <ProjectGuid>{89e2066f-49c6-ba83-cfd3-363a5313b275}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <AssemblyName>NatML.Vision.BlazeFace</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -36,9 +36,8 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets/FaceCam.cs" />
-     <Compile Include="Assets/ML/blazeface/Sample/BlazeFaceSample.cs" />
-     <Compile Include="Assets/ML/blazeface/Sample/BlazeFaceVisualizer.cs" />
+     <Compile Include="Assets/ML/blazeface/Runtime/BlazeFacePredictor.cs" />
+     <None Include="Assets/ML/blazeface/Runtime/NatML.Vision.BlazeFace.asmdef" />
     <Reference Include="UnityEngine">
         <HintPath>/Applications/Unity/Hub/Editor/2020.3.35f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
@@ -251,6 +250,33 @@
     </Reference>
     <Reference Include="UnityEditor.UnityConnectModule">
         <HintPath>/Applications/Unity/Hub/Editor/2020.3.35f1/Unity.app/Contents/Managed/UnityEngine/UnityEditor.UnityConnectModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Graphs">
+        <HintPath>/Applications/Unity/Hub/Editor/2020.3.35f1/Unity.app/Contents/Managed/UnityEditor.Graphs.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.WebGL.Extensions">
+        <HintPath>/Applications/Unity/Hub/Editor/2020.3.35f1/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.OSXStandalone.Extensions">
+        <HintPath>/Applications/Unity/Hub/Editor/2020.3.35f1/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Android.Extensions">
+        <HintPath>/Applications/Unity/Hub/Editor/2020.3.35f1/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions">
+        <HintPath>/Applications/Unity/Hub/Editor/2020.3.35f1/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Plastic.Newtonsoft.Json">
+        <HintPath>/Users/yusuf/Desktop/FaceCam/Library/PackageCache/com.unity.collab-proxy@1.15.17/Lib/Editor/PlasticSCM/Unity.Plastic.Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Plastic.Antlr3.Runtime">
+        <HintPath>/Users/yusuf/Desktop/FaceCam/Library/PackageCache/com.unity.collab-proxy@1.15.17/Lib/Editor/PlasticSCM/Unity.Plastic.Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="log4netPlastic">
+        <HintPath>/Users/yusuf/Desktop/FaceCam/Library/PackageCache/com.unity.collab-proxy@1.15.17/Lib/Editor/PlasticSCM/log4netPlastic.dll</HintPath>
+    </Reference>
+    <Reference Include="unityplastic">
+        <HintPath>/Users/yusuf/Desktop/FaceCam/Library/PackageCache/com.unity.collab-proxy@1.15.17/Lib/Editor/PlasticSCM/unityplastic.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
         <HintPath>/Applications/Unity/Hub/Editor/2020.3.35f1/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
@@ -603,60 +629,17 @@
     <Reference Include="mscorlib">
         <HintPath>/Applications/Unity/Hub/Editor/2020.3.35f1/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netfx/mscorlib.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.VSCode.Editor">
-        <HintPath>/Users/yusuf/Desktop/FaceCam/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.TextMeshPro.Editor">
-        <HintPath>/Users/yusuf/Desktop/FaceCam/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VisualStudio.Editor">
-        <HintPath>/Users/yusuf/Desktop/FaceCam/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Timeline.Editor">
-        <HintPath>/Users/yusuf/Desktop/FaceCam/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Timeline">
-        <HintPath>/Users/yusuf/Desktop/FaceCam/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.TextMeshPro">
-        <HintPath>/Users/yusuf/Desktop/FaceCam/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+    <Reference Include="NatML.ML">
+        <HintPath>/Users/yusuf/Desktop/FaceCam/Library/ScriptAssemblies/NatML.ML.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
         <HintPath>/Users/yusuf/Desktop/FaceCam/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.PlasticSCM.Editor">
-        <HintPath>/Users/yusuf/Desktop/FaceCam/Library/ScriptAssemblies/Unity.PlasticSCM.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Rider.Editor">
-        <HintPath>/Users/yusuf/Desktop/FaceCam/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine.UI">
         <HintPath>/Users/yusuf/Desktop/FaceCam/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
-    <Reference Include="NatML.Devices">
-        <HintPath>/Users/yusuf/Desktop/FaceCam/Library/ScriptAssemblies/NatML.Devices.dll</HintPath>
-    </Reference>
-    <Reference Include="NatML.ML.Editor">
-        <HintPath>/Users/yusuf/Desktop/FaceCam/Library/ScriptAssemblies/NatML.ML.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="NatML.ML">
-        <HintPath>/Users/yusuf/Desktop/FaceCam/Library/ScriptAssemblies/NatML.ML.dll</HintPath>
-    </Reference>
-    <Reference Include="NatML.Hub.Editor">
-        <HintPath>/Users/yusuf/Desktop/FaceCam/Library/ScriptAssemblies/NatML.Hub.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="NatML.Hub">
-        <HintPath>/Users/yusuf/Desktop/FaceCam/Library/ScriptAssemblies/NatML.Hub.dll</HintPath>
-    </Reference>
-    <Reference Include="NatML.Devices.Editor">
-        <HintPath>/Users/yusuf/Desktop/FaceCam/Library/ScriptAssemblies/NatML.Devices.Editor.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="NatML.Vision.BlazeFace.csproj">
-      <Project>{89e2066f-49c6-ba83-cfd3-363a5313b275}</Project>
-      <Name>NatML.Vision.BlazeFace</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

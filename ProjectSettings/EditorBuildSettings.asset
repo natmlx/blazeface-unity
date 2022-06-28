@@ -8,4 +8,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/FaceCam.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
-  m_configObjects: {}
+  m_configObjects:
+    ai.natml.hub.settings: {fileID: 11400000, guid: 7e28fd37b4c94405fb347a9eeb8963b4,
+      type: 2}
+    ai.natml.natdevice.settings: {fileID: 11400000, guid: f60f2e64dde6b4d74bbe0b128d4fb3f8,
+      type: 2}
