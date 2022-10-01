@@ -4,14 +4,15 @@ Temp/
 obj/
 Logs/
 
-# NatML
-Assets/NatML/
-Assets/NatML.meta
-
 # IDE
 .vscode/
 .gradle/
 .vs/
+
+# NatML
+Assets/NatML/
+Assets/NatML.meta
+ProjectSettings/NatMLHub.asset
 
 # Misc
 .DS_Store

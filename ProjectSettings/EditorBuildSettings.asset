@@ -5,11 +5,11 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/FaceCam.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects:
-    ai.natml.hub.settings: {fileID: 11400000, guid: 7e28fd37b4c94405fb347a9eeb8963b4,
+    ai.natml.hub.settings: {fileID: 11400000, guid: 4cbf50f6cb5124617b1c473c813b14fe,
       type: 2}
-    ai.natml.natdevice.settings: {fileID: 11400000, guid: f60f2e64dde6b4d74bbe0b128d4fb3f8,
+    ai.natml.natdevice.settings: {fileID: 11400000, guid: cb8fc74eba64548e6a52d947c0825238,
       type: 2}

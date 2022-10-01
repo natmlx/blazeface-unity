@@ -33,7 +33,8 @@ namespace NatML.Vision {
             this.maxIoU = maxIoU;
             this.inputType = model.inputs[0] as MLImageType;
             this.anchors = GenerateAnchors(inputType.width, inputType.height);
-            // Allocate buffers
+            this.candidateBoxes = new List<Rect>(anchors.Length);
+            this.candidateScores = new List<float>(anchors.Length);
             this.scores = new float[anchors.Length];
             this.regression = new float[anchors.Length * 16];
         }
@@ -66,9 +67,9 @@ namespace NatML.Vision {
             scoresFeature1.CopyTo(scores, scoresFeature0.elementCount, scoresFeature1.elementCount);
             regressionFeature0.CopyTo(regression, 0, regressionFeature0.elementCount);
             regressionFeature1.CopyTo(regression, regressionFeature0.elementCount, regressionFeature1.elementCount);
-            var candidateBoxes = new List<Rect>();
-            var candidateScores = new List<float>();
-            for (var i = 0; i < anchors.Length; ++i) {
+            candidateBoxes.Clear();
+            candidateScores.Clear();
+            for (int i = 0, len = anchors.Length; i < len; ++i) {
                 // Check score
                 var score = scores[i];
                 if (score < minScore)
@@ -100,6 +101,8 @@ namespace NatML.Vision {
         private readonly float maxIoU;
         private readonly MLImageType inputType;
         private readonly Vector2[] anchors;
+        private readonly List<Rect> candidateBoxes;
+        private readonly List<float> candidateScores;
         private readonly float[] scores;
         private readonly float[] regression;
         private static readonly (int, int)[] AnchorGridSizes = new [] { (16, 16), (8, 8) };

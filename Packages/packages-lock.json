@@ -1,29 +1,37 @@
 {
   "dependencies": {
     "ai.natml.hub": {
-      "version": "1.0.8",
+      "version": "1.0.12",
       "depth": 1,
       "source": "registry",
       "dependencies": {},
       "url": "https://registry.npmjs.com"
     },
     "ai.natml.natdevice": {
-      "version": "1.2.2",
+      "version": "1.2.5",
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "ai.natml.hub": "1.0.8"
+        "ai.natml.hub": "1.0.12"
       },
       "url": "https://registry.npmjs.com"
     },
     "ai.natml.natml": {
-      "version": "1.0.12",
-      "depth": 0,
+      "version": "1.0.18",
+      "depth": 1,
       "source": "registry",
       "dependencies": {
-        "ai.natml.hub": "1.0.8"
+        "ai.natml.hub": "1.0.12"
       },
       "url": "https://registry.npmjs.com"
+    },
+    "ai.natml.vision.blazeface": {
+      "version": "file:ai.natml.vision.blazeface",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "ai.natml.natml": "1.0.18"
+      }
     },
     "com.unity.collab-proxy": {
       "version": "1.15.17",
@@ -42,11 +50,11 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.rider": {
-      "version": "2.0.7",
+      "version": "3.0.14",
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.unity.test-framework": "1.1.1"
+        "com.unity.ext.nunit": "1.0.6"
       },
       "url": "https://packages.unity.com"
     },
@@ -66,12 +74,21 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+    "com.unity.nuget.newtonsoft-json": {
+      "version": "3.0.2",
+      "depth": 2,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
     "com.unity.services.core": {
-      "version": "1.0.1",
+      "version": "1.4.0",
       "depth": 1,
       "source": "registry",
       "dependencies": {
-        "com.unity.modules.unitywebrequest": "1.0.0"
+        "com.unity.modules.unitywebrequest": "1.0.0",
+        "com.unity.nuget.newtonsoft-json": "3.0.2",
+        "com.unity.modules.androidjni": "1.0.0"
       },
       "url": "https://packages.unity.com"
     },
@@ -96,7 +113,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.timeline": {
-      "version": "1.4.8",
+      "version": "1.6.4",
       "depth": 0,
       "source": "registry",
       "dependencies": {

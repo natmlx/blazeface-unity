@@ -1,0 +1,27 @@
+{
+    "name": "ai.natml.vision.blazeface",
+    "version": "1.0.5",
+    "displayName": "BlazeFace",
+    "description": "MediaPipe BlazeFace for realtime face detection in Unity Engine.",
+    "unity": "2021.2",
+    "dependencies": {
+        "ai.natml.natml": "1.0.18"
+    },
+    "keywords": [
+        "natml",
+        "machine learning",
+        "ml",
+        "aritificial intelligence",
+        "face detection",
+        "mediapipe",
+        "face filters",
+        "augmented reality"
+    ],
+    "author": {
+        "name": "NatML",
+        "email": "hi@natml.ai",
+        "url": "https://github.com/natmlx"
+    },
+    "license": "Apache-2.0",
+    "repository": "github:natmlx/BlazeFace"
+}

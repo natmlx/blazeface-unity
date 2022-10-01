@@ -1,21 +1,23 @@
-# Face Cam
+# BlazeFace
 
-Realtime face detection on mobile with [NatML](https://github.com/natmlx/NatML) and [NatDevice](https://github.com/natmlx/NatDevice).
+![demo](demo.gif)
+
+MediaPipe BlazeFace for realtime face detection in Unity Engine.
 
 ## Requirements
-- Unity 2020.3+
-- [NatML 1.0.12+](https://github.com/natmlx/NatML)
-- [NatDevice 1.2.2+](https://github.com/natmlx/NatDevice)
-- [@natsuite/blazeface](https://hub.natml.ai/@natsuite/blazeface)
+- Unity 2021.2+
 
 ## Supported Platforms
 - Android API level 24+
 - iOS 13+
 - macOS 10.15+ (Apple Silicon and Intel)
 - Windows 10+ (64-bit only)
+- WebGL:
+    - Chrome 91+
+    - Firefox 90+
 
 ## Resources
-- Join the [NatML community on Discord](https://discord.gg/y5vwgXkz2f).
+- Join the [NatML community on Discord](https://hub.natml.ai/community).
 - See the [NatML documentation](https://docs.natml.ai/unity).
 - See the [NatDevice documentation](https://docs.natml.ai/natdevice).
 - Check out [NatML on GitHub](https://github.com/natmlx).

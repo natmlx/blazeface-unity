@@ -16,18 +16,25 @@ namespace NatML.Visualizers {
 
         #region --Client API--
         /// <summary>
+        /// Get or set the detection image.
+        /// </summary>
+        public Texture2D image {
+            get => rawImage.texture as Texture2D;
+            set {
+                rawImage.texture = value;
+                aspectFitter.aspectRatio = (float)value.width / value.height;
+            }
+        }
+
+        /// <summary>
         /// Render a set of detected faces.
         /// </summary>
-        /// <param name="image">Image which detections are made on.</param>
         /// <param name="faces">Faces to render.</param>
-        public void Render (Texture image, params Rect[] faces) {
+        public void Render (params Rect[] faces) {
             // Delete current
             foreach (var rect in currentRects)
                 GameObject.Destroy(rect.gameObject);
-            currentRects.Clear();
-            // Display image
-            rawImage.texture = image;
-            aspectFitter.aspectRatio = (float)image.width / image.height;            
+            currentRects.Clear();        
             // Render rects
             foreach (var face in faces) {
                 var prefab = Instantiate(faceRect, transform);
@@ -40,10 +47,11 @@ namespace NatML.Visualizers {
 
 
         #region --Operations--
-        [SerializeField] Image faceRect;
-        RawImage rawImage;
-        AspectRatioFitter aspectFitter;
-        List<Image> currentRects = new List<Image>();
+        [SerializeField]
+        private Image faceRect;
+        private RawImage rawImage;
+        private AspectRatioFitter aspectFitter;
+        private readonly List<Image> currentRects = new List<Image>();
 
         void Awake () {
             rawImage = GetComponent<RawImage>();

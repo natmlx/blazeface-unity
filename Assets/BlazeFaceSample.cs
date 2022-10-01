@@ -1,29 +1,29 @@
 /* 
-*   FaceCam
+*   BlazeFace
 *   Copyright (c) 2022 NatML Inc. All Rights Reserved.
 */
 
 namespace NatML.Examples {
 
+    using System.Threading.Tasks;
     using UnityEngine;
-    using NatML;
     using NatML.Devices;
     using NatML.Devices.Outputs;
     using NatML.Features;
     using NatML.Vision;
     using NatML.Visualizers;
 
-    public class FaceCam : MonoBehaviour {
+    public sealed class BlazeFaceSample : MonoBehaviour {        
 
-        [Header(@"Visualization")]
+        [Header(@"UI")]
         public BlazeFaceVisualizer visualizer;
 
-        CameraDevice cameraDevice;
-        TextureOutput previewTextureOutput;
+        private CameraDevice cameraDevice;
+        private TextureOutput cameraTextureOutput;
 
-        MLModelData modelData;
-        MLModel model;
-        BlazeFacePredictor predictor;
+        private MLModelData modelData;
+        private MLModel model;
+        private BlazeFacePredictor predictor;
 
         async void Start () {
             // Request camera permissions
@@ -37,37 +37,33 @@ namespace NatML.Examples {
             cameraDevice = query.current as CameraDevice;
             // Start the camera preview
             cameraDevice.previewResolution = (1280, 720);
-            previewTextureOutput = new TextureOutput();
-            cameraDevice.StartRunning(previewTextureOutput);
+            cameraTextureOutput = new TextureOutput();
+            cameraDevice.StartRunning(cameraTextureOutput);
             // Display the camera preview
-            var previewTexture = await previewTextureOutput;
-            visualizer.Render(previewTexture);
-            // Fetch the BlazeFace model data
-            Debug.Log("Fetching model from NatML...");
-            modelData = await MLModelData.FromHub("@natsuite/blazeface");
-            // Deserialize the model
-            model = modelData.Deserialize();
+            var cameraTexture = await cameraTextureOutput;
+            visualizer.image = cameraTexture;
             // Create the BlazeFace predictor
+            modelData = await MLModelData.FromHub("@natsuite/blazeface");
+            model = modelData.Deserialize();
             predictor = new BlazeFacePredictor(model);
         }
 
         void Update () {
-            // Check that the model has been downloaded
+            // Check that predictor has downloaded
             if (predictor == null)
                 return;
             // Create input feature
-            var previewTexture = previewTextureOutput.texture;
-            var inputFeature = new MLImageFeature(previewTexture.GetRawTextureData<byte>(), previewTexture.width, previewTexture.height);
-            (inputFeature.mean, inputFeature.std) = modelData.normalization;
-            inputFeature.aspectMode = modelData.aspectMode;
+            var imageFeature = new MLImageFeature(cameraTextureOutput.texture);
+            (imageFeature.mean, imageFeature.std) = modelData.normalization;
+            imageFeature.aspectMode = modelData.aspectMode;
             // Predict
-            var faces = predictor.Predict(inputFeature);
+            var faces = predictor.Predict(imageFeature);
             // Visualize
-            visualizer.Render(previewTexture, faces);
+            visualizer.Render(faces);
         }
 
         void OnDisable () {
-            // Dispose the predictor and model
+            // Dispose the model
             model?.Dispose();
         }
     }
