@@ -4,6 +4,14 @@
 
 MediaPipe BlazeFace for realtime face detection in Unity Engine.
 
+## Running the Sample
+Retrieve your access key from [NatML Hub](https://hub.natml.ai/profile) and add it to your Project Settings. Note that running the sample code requires an active [NatML Cloud](https://www.natml.ai/pricing) subscription:
+
+![project settings](https://github.com/natmlx/NatDevice/raw/main/.media/key.png)
+
+## Using the Predictor in a Different Project
+[See the predictor README for more details](Packages/ai.natml.vision.blazeface/README.md).
+
 ## Requirements
 - Unity 2021.2+
 
