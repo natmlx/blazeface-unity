@@ -1,6 +1,6 @@
 /* 
 *   BlazeFace
-*   Copyright (c) 2022 NatML Inc. All Rights Reserved.
+*   Copyright (c) 2023 NatML Inc. All Rights Reserved.
 */
 
 namespace NatML.Vision {
@@ -8,6 +8,7 @@ namespace NatML.Vision {
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using UnityEngine;
     using NatML.Features;
     using NatML.Internal;
@@ -22,22 +23,9 @@ namespace NatML.Vision {
 
         #region --Client API--
         /// <summary>
-        /// Create the BlazeFace predictor.
+        /// Predictor tag.
         /// </summary>
-        /// <param name="model">BlazeFace ML model.</param>
-        /// <param name="minScore">Minimum candidate score.</param>
-        /// <param name="maxIoU">Maximum intersection-over-union score for overlap removal.</param>
-        public BlazeFacePredictor (MLModel model, float minScore = 0.5f, float maxIoU = 0.5f) {
-            this.model = model as MLEdgeModel;
-            this.minScore = Logit(minScore);
-            this.maxIoU = maxIoU;
-            this.inputType = model.inputs[0] as MLImageType;
-            this.anchors = GenerateAnchors(inputType.width, inputType.height);
-            this.candidateBoxes = new List<Rect>(anchors.Length);
-            this.candidateScores = new List<float>(anchors.Length);
-            this.scores = new float[anchors.Length];
-            this.regression = new float[anchors.Length * 16];
-        }
+        public const string Tag = "@natsuite/blazeface";
 
         /// <summary>
         /// Detect faces in an image.
@@ -51,9 +39,14 @@ namespace NatML.Vision {
             // Check type
             var input = inputs[0];
             var imageType = MLImageType.FromType(input.type);
-            var imageFeature = input as MLImageFeature;
             if (!imageType)
                 throw new ArgumentException(@"BlazeFace predictor expects an an array or image feature", nameof(inputs));
+            // Preprocess
+            var imageFeature = input as MLImageFeature;
+            if (imageFeature != null) {
+                (imageFeature.mean, imageFeature.std) = model.normalization;
+                imageFeature.aspectMode = model.aspectMode;
+            }
             // Predict
             using var inputFeature = (input as IMLEdgeFeature).Create(inputType);
             using var outputFeatures = model.Predict(inputFeature);
@@ -63,34 +56,60 @@ namespace NatML.Vision {
             var scoresFeature1 = new MLArrayFeature<float>(outputFeatures[1]);      // (1,384,1)
             var regressionFeature0 = new MLArrayFeature<float>(outputFeatures[2]);  // (1,512,16)
             var regressionFeature1 = new MLArrayFeature<float>(outputFeatures[3]);  // (1.384,16)
-            scoresFeature0.CopyTo(scores, 0, scoresFeature0.elementCount);
-            scoresFeature1.CopyTo(scores, scoresFeature0.elementCount, scoresFeature1.elementCount);
-            regressionFeature0.CopyTo(regression, 0, regressionFeature0.elementCount);
-            regressionFeature1.CopyTo(regression, regressionFeature0.elementCount, regressionFeature1.elementCount);
+            var anchorOffset = 0;
             candidateBoxes.Clear();
             candidateScores.Clear();
-            for (int i = 0, len = anchors.Length; i < len; ++i) {
-                // Check score
-                var score = scores[i];
-                if (score < minScore)
-                    continue;
-                // Extract
-                var regressorIdx = 16 * i;
-                var anchor = anchors[i];
-                var cx = regression[regressorIdx] + anchor.x;
-                var cy = regression[regressorIdx + 1] + anchor.y;
-                var w = regression[regressorIdx + 2];
-                var h = regression[regressorIdx + 3];
-                var rawBox = new Rect((cx - w / 2) * widthInv, 1f - (cy + h / 2) * heightInv, w * widthInv, h * heightInv);
-                var box = imageFeature?.TransformRect(rawBox, inputType) ?? rawBox;
-                // Add
-                candidateBoxes.Add(box);
-                candidateScores.Add(score);
+            foreach (var (scores, regression) in new [] {
+                (scoresFeature0, regressionFeature0),
+                (scoresFeature1, regressionFeature1)
+            }) {
+                for (int i = 0, len = scores.shape[1]; i < len; ++i) {
+                    // Check score
+                    var score = scores[i];
+                    if (score < minScore)
+                        continue;
+                    // Extract
+                    var anchor = anchors[i + anchorOffset];
+                    var cx = regression[0,i,0] + anchor.x;
+                    var cy = regression[0,i,1] + anchor.y;
+                    var w = regression[0,i,2];
+                    var h = regression[0,i,3];
+                    var rawBox = new Rect((cx - w / 2) * widthInv, 1f - (cy + h / 2) * heightInv, w * widthInv, h * heightInv);
+                    var box = imageFeature?.TransformRect(rawBox, inputType) ?? rawBox;
+                    // Add
+                    candidateBoxes.Add(box);
+                    candidateScores.Add(score);
+                }
+                anchorOffset += scores.shape[1];
             }
+            // NMS
             var keepIdx = MLImageFeature.NonMaxSuppression(candidateBoxes, candidateScores, maxIoU);
             var result = keepIdx.Select(i => candidateBoxes[i]).ToArray();
             // Return
             return result;
+        }
+
+        /// <summary>
+        /// Dispose the predictor and release resources.
+        /// </summary>
+        public void Dispose () => model.Dispose();
+
+        /// <summary>
+        /// Create the BlazeFace predictor.
+        /// </summary>
+        /// <param name="minScore">Minimum candidate score.</param>
+        /// <param name="maxIoU">Maximum intersection-over-union score for overlap removal.</param>
+        /// <param name="configuration">Model configuration.</param>
+        /// <param name="accessKey">NatML access key.</param>
+        public static async Task<BlazeFacePredictor> Create (
+            float minScore = 0.5f,
+            float maxIoU = 0.5f,
+            MLEdgeModel.Configuration configuration = null,
+            string accessKey = null
+        ) {
+            var model = await MLEdgeModel.Create(Tag, configuration, accessKey);
+            var predictor = new BlazeFacePredictor(model, minScore, maxIoU);
+            return predictor;
         }
         #endregion
 
@@ -103,12 +122,18 @@ namespace NatML.Vision {
         private readonly Vector2[] anchors;
         private readonly List<Rect> candidateBoxes;
         private readonly List<float> candidateScores;
-        private readonly float[] scores;
-        private readonly float[] regression;
         private static readonly (int, int)[] AnchorGridSizes = new [] { (16, 16), (8, 8) };
         private static readonly int[] AnchorCounts = new [] { 2, 6 };
 
-        void IDisposable.Dispose () { } // Not used
+        private BlazeFacePredictor (MLEdgeModel model, float minScore, float maxIoU) {
+            this.model = model;
+            this.minScore = Logit(minScore);
+            this.maxIoU = maxIoU;
+            this.inputType = model.inputs[0] as MLImageType;
+            this.anchors = GenerateAnchors(inputType.width, inputType.height);
+            this.candidateBoxes = new List<Rect>(anchors.Length);
+            this.candidateScores = new List<float>(anchors.Length);
+        }
 
         private static Vector2[] GenerateAnchors (int width, int height) {
             var result = new List<Vector2>();

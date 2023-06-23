@@ -1,70 +1,44 @@
 /* 
 *   BlazeFace
-*   Copyright (c) 2022 NatML Inc. All Rights Reserved.
+*   Copyright (c) 2023 NatML Inc. All Rights Reserved.
 */
 
 namespace NatML.Examples {
 
-    using System.Threading.Tasks;
     using UnityEngine;
-    using NatML.Devices;
-    using NatML.Devices.Outputs;
-    using NatML.Features;
+    using NatML.VideoKit;
     using NatML.Vision;
     using NatML.Visualizers;
 
-    public sealed class BlazeFaceSample : MonoBehaviour {        
+    public sealed class BlazeFaceSample : MonoBehaviour {
+
+        [Header(@"Camera")]
+        public VideoKitCameraManager cameraManager;  
 
         [Header(@"UI")]
         public BlazeFaceVisualizer visualizer;
 
-        private CameraDevice cameraDevice;
-        private TextureOutput cameraTextureOutput;
-
-        private MLModelData modelData;
-        private MLModel model;
         private BlazeFacePredictor predictor;
 
-        async void Start () {
-            // Request camera permissions
-            var permissionStatus = await MediaDeviceQuery.RequestPermissions<CameraDevice>();
-            if (permissionStatus != PermissionStatus.Authorized) {
-                Debug.LogError(@"User did not grant camera permissions");
-                return;
-            }
-            // Get the default camera device
-            var query = new MediaDeviceQuery(MediaDeviceCriteria.CameraDevice);
-            cameraDevice = query.current as CameraDevice;
-            // Start the camera preview
-            cameraDevice.previewResolution = (1280, 720);
-            cameraTextureOutput = new TextureOutput();
-            cameraDevice.StartRunning(cameraTextureOutput);
-            // Display the camera preview
-            var cameraTexture = await cameraTextureOutput;
-            visualizer.image = cameraTexture;
-            // Create the BlazeFace predictor
-            modelData = await MLModelData.FromHub("@natsuite/blazeface");
-            model = modelData.Deserialize();
-            predictor = new BlazeFacePredictor(model);
+        private async void Start () {
+            // Create the RVM predictor
+            predictor = await BlazeFacePredictor.Create();
+            // Listen for camera frames
+            cameraManager.OnCameraFrame.AddListener(OnCameraFrame);
         }
 
-        void Update () {
-            // Check that predictor has downloaded
-            if (predictor == null)
-                return;
-            // Create input feature
-            var imageFeature = new MLImageFeature(cameraTextureOutput.texture);
-            (imageFeature.mean, imageFeature.std) = modelData.normalization;
-            imageFeature.aspectMode = modelData.aspectMode;
+        private void OnCameraFrame (CameraFrame frame) {
             // Predict
-            var faces = predictor.Predict(imageFeature);
+            var faces = predictor.Predict(frame);
             // Visualize
             visualizer.Render(faces);
         }
 
-        void OnDisable () {
-            // Dispose the model
-            model?.Dispose();
+        private void OnDisable () {
+            // Stop listening for camera frames
+            cameraManager.OnCameraFrame.RemoveListener(OnCameraFrame);
+            // Dispose the predictor
+            predictor?.Dispose();
         }
     }
 }

@@ -1,6 +1,6 @@
 /* 
 *   BlazeFace
-*   Copyright (c) 2022 NatML Inc. All Rights Reserved.
+*   Copyright (c) 2023 NatML Inc. All Rights Reserved.
 */
 
 namespace NatML.Visualizers {
@@ -15,17 +15,6 @@ namespace NatML.Visualizers {
     public sealed class BlazeFaceVisualizer : MonoBehaviour {
 
         #region --Client API--
-        /// <summary>
-        /// Get or set the detection image.
-        /// </summary>
-        public Texture2D image {
-            get => rawImage.texture as Texture2D;
-            set {
-                rawImage.texture = value;
-                aspectFitter.aspectRatio = (float)value.width / value.height;
-            }
-        }
-
         /// <summary>
         /// Render a set of detected faces.
         /// </summary>
@@ -47,8 +36,7 @@ namespace NatML.Visualizers {
 
 
         #region --Operations--
-        [SerializeField]
-        private Image faceRect;
+        [SerializeField] private Image faceRect;
         private RawImage rawImage;
         private AspectRatioFitter aspectFitter;
         private readonly List<Image> currentRects = new List<Image>();

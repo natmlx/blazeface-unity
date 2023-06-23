@@ -1,3 +1,7 @@
+## 1.0.6
++ Reduced memory consumption in `BlazeFacePredictor`.
++ Upgraded to NatML 1.1.6.
+
 ## 1.0.5
 + Minor fixes.
 

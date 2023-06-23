@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.4440765, g: 0.49331635, b: 0.57239074, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -135,7 +135,9 @@ GameObject:
   - component: {fileID: 996177066}
   - component: {fileID: 996177065}
   - component: {fileID: 996177064}
+  - component: {fileID: 996177069}
   - component: {fileID: 996177067}
+  - component: {fileID: 996177068}
   m_Layer: 5
   m_Name: RawImage
   m_TagString: Untagged
@@ -225,6 +227,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   faceRect: {fileID: 2091477038}
+--- !u!114 &996177068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 996177062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
+--- !u!114 &996177069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 996177062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 145a5a333d6e14379ae91956c0b3373e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraManager: {fileID: 1598870983}
+  viewMode: 0
+  focusMode: 0
+  exposureMode: 0
+  zoomMode: 0
+  OnPresent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1066539941
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,6 +290,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
@@ -340,10 +376,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1080, y: 1920}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -403,6 +439,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1598870982}
+  - component: {fileID: 1598870983}
   - component: {fileID: 1598870981}
   m_Layer: 0
   m_Name: BlazeFaceSample
@@ -423,6 +460,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e6f3dff277884d1e9563945e77a9394, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraManager: {fileID: 1598870983}
   visualizer: {fileID: 996177067}
 --- !u!4 &1598870982
 Transform:
@@ -439,6 +477,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1598870983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1598870980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98622613d505143a9a06b4b11b0a82cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  capabilities: 2
+  playOnAwake: 1
+  _facing: 0
+  resolution: 3
+  frameRate: 30
+  focusMode: 0
+  exposureMode: 0
+  OnCameraFrame:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1757419522
 GameObject:
   m_ObjectHideFlags: 0
