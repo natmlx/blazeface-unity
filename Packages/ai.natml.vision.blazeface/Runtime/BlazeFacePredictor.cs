@@ -19,7 +19,7 @@ namespace NatML.Vision {
     /// This predictor accepts an image feature and produces a list of face rectangles.
     /// Face rectangles are always specified in normalized coordinates.
     /// </summary>
-    public sealed class BlazeFacePredictor : IMLPredictor<Rect[]> {
+    public sealed partial class BlazeFacePredictor : IMLPredictor<BlazeFacePredictor.Face[]> {
 
         #region --Client API--
         /// <summary>
@@ -32,7 +32,7 @@ namespace NatML.Vision {
         /// </summary>
         /// <param name="inputs">Input image.</param>
         /// <returns>Detected faces.</returns>
-        public Rect[] Predict (params MLFeature[] inputs) {
+        public Face[] Predict (params MLFeature[] inputs) {
             // Check
             if (inputs.Length != 1)
                 throw new ArgumentException(@"BlazeFace predictor expects a single feature", nameof(inputs));
@@ -59,6 +59,7 @@ namespace NatML.Vision {
             var anchorOffset = 0;
             candidateBoxes.Clear();
             candidateScores.Clear();
+            candidateKeypoints.Clear();
             foreach (var (scores, regression) in new [] {
                 (scoresFeature0, regressionFeature0),
                 (scoresFeature1, regressionFeature1)
@@ -74,17 +75,35 @@ namespace NatML.Vision {
                     var cy = regression[0,i,1] + anchor.y;
                     var w = regression[0,i,2];
                     var h = regression[0,i,3];
+                    var keypoints = new Vector2[6];
+                    for (var k = 0; k < keypoints.Length; ++k) {
+                        var o = 4 + 2 * k;
+                        var kx = (anchor.x + regression[0,i,o]) * widthInv;
+                        var ky = 1f - (anchor.y + regression[0,i,o+1]) * heightInv;
+                        var rawPoint = new Vector2(kx, ky);
+                        keypoints[k] = imageFeature?.TransformPoint(rawPoint, inputType) ?? rawPoint;
+                    }
                     var rawBox = new Rect((cx - w / 2) * widthInv, 1f - (cy + h / 2) * heightInv, w * widthInv, h * heightInv);
                     var box = imageFeature?.TransformRect(rawBox, inputType) ?? rawBox;
                     // Add
                     candidateBoxes.Add(box);
                     candidateScores.Add(score);
+                    candidateKeypoints.Add(keypoints);
                 }
                 anchorOffset += scores.shape[1];
             }
             // NMS
             var keepIdx = MLImageFeature.NonMaxSuppression(candidateBoxes, candidateScores, maxIoU);
-            var result = keepIdx.Select(i => candidateBoxes[i]).ToArray();
+            var result = keepIdx.Select(i => new Face() {
+                rect = candidateBoxes[i],
+                score = candidateScores[i],
+                leftEye = candidateKeypoints[i][0],
+                rightEye = candidateKeypoints[i][1],
+                nose = candidateKeypoints[i][2],
+                mouth = candidateKeypoints[i][3],
+                leftEar = candidateKeypoints[i][4],
+                rightEar = candidateKeypoints[i][5]
+            }).ToArray();
             // Return
             return result;
         }
@@ -122,6 +141,7 @@ namespace NatML.Vision {
         private readonly Vector2[] anchors;
         private readonly List<Rect> candidateBoxes;
         private readonly List<float> candidateScores;
+        private readonly List<Vector2[]> candidateKeypoints;
         private static readonly (int, int)[] AnchorGridSizes = new [] { (16, 16), (8, 8) };
         private static readonly int[] AnchorCounts = new [] { 2, 6 };
 
@@ -133,6 +153,7 @@ namespace NatML.Vision {
             this.anchors = GenerateAnchors(inputType.width, inputType.height);
             this.candidateBoxes = new List<Rect>(anchors.Length);
             this.candidateScores = new List<float>(anchors.Length);
+            this.candidateKeypoints = new List<Vector2[]>(anchors.Length);
         }
 
         private static Vector2[] GenerateAnchors (int width, int height) {

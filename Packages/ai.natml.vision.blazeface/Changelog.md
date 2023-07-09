@@ -1,3 +1,8 @@
+## 1.0.7
++ Added face landmark detection!
++ Added `BlazeFacePredictor.Face` struct for providing more information about detected faces.
++ Updated `BlazeFacePredictor.Predict` method to return a `Face[]` instead of `Rect[]`.
+
 ## 1.0.6
 + Reduced memory consumption in `BlazeFacePredictor`.
 + Upgraded to NatML 1.1.6.

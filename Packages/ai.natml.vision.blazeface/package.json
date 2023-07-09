@@ -1,6 +1,6 @@
 {
     "name": "ai.natml.vision.blazeface",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "displayName": "BlazeFace",
     "description": "MediaPipe BlazeFace for realtime face detection in Unity Engine.",
     "unity": "2021.2",
