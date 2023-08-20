@@ -1,3 +1,6 @@
+## 1.0.8
++ Upgraded to NatML 1.1.15.
+
 ## 1.0.7
 + Added face landmark detection!
 + Added `BlazeFacePredictor.Face` struct for providing more information about detected faces.

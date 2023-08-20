@@ -1,7 +1,7 @@
 {
     "name": "NatML.Vision.BlazeFace",
     "references": [
-		"NatML.ML"
+		"NatML.Runtime"
 	],
     "includePlatforms": [
         "Android",
